@@ -22,7 +22,9 @@ export default function Post({ postData }) {
             {postData.id}
             <br />
             {postData.date}
-        </Layout>
+            <br/>
+            <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        </Layout >
     )
 }
 
@@ -47,9 +49,10 @@ export async function getStaticProps({ params }) {
     /*
     function to return the data of the props in the following format:
     { id: 'pre-rendering', title: 'Two Forms of Pre-rendering', date: '2020-01-01'}
-    */ 
-   
-    const postData = getPostData(params.id)
+    */
+
+    const postData = await getPostData(params.id)
+    // as we are using await in getPostData we need to also use it here
     return {
         props: {
             postData
