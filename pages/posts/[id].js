@@ -1,5 +1,8 @@
 import Layout from '../../components/layout'
 import { getAllPostIds, getPostData } from '../../lib/posts'
+import Head from 'next/head' //Head allows the creation of meta data etc in the page header
+import Date from '../../components/date' // uses date-fns to format a string
+import utilStyles from '../../styles/utils.module.css'
 
 /*
 If you want to statically generate a page called posts/<id> where
@@ -17,13 +20,18 @@ export default function Post({ postData }) {
     */
     return (
         <Layout>
+            <Head>
+                <title>{postData.title}</title>
+            </Head>
+            <article>
             {postData.title}
             <br />
             {postData.id}
             <br />
-            {postData.date}
-            <br/>
+            <Date dateString={postData.date} />
+            <br />
             <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+            </article>
         </Layout >
     )
 }
